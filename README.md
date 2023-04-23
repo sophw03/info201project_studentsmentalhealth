@@ -20,7 +20,7 @@ An annual survey by the government to collect statistics from both private and p
 60 features in data
 
 
-##Background Research/Inspiration
+## Background Research/Inspiration
 https://jamanetwork.com/journals/jamapsychiatry/article-abstract/482915
 Studies the amount of college-age individuals that have had a psychiatric disorders in the past year, comparing those in college vs those not in college
 Focused on alcohol-disorders and drug-disorders compared to general mental health
