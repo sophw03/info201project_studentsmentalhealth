@@ -9,12 +9,14 @@ As mentioned previously, we hope to use this project to help contribute to conve
 ## Finding Data
 **Student mental health**
 https://www.kaggle.com/datasets/shariful07/student-mental-health
+
 Collected by a survey conducted on Google forms for university students at International Islamic University Malaysia in order to examine their current academic situation and mental health
 101 observations of different students 
 11 features in the data
 
 **National Mental Health Services Survey**
 https://www.datafiles.samhsa.gov/dataset/national-mental-health-services-survey-2020-n-mhss-2020-ds0001 
+
 An annual survey by the government to collect statistics from both private and public mental health facilities about their patrons’ needs
 12,275 observations 
 60 features in data
@@ -22,6 +24,7 @@ An annual survey by the government to collect statistics from both private and p
 
 ## Background Research/Inspiration
 https://jamanetwork.com/journals/jamapsychiatry/article-abstract/482915
+
 Studies the amount of college-age individuals that have had a psychiatric disorders in the past year, comparing those in college vs those not in college
 Focused on alcohol-disorders and drug-disorders compared to general mental health
 
