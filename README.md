@@ -26,7 +26,7 @@ As mentioned previously, we hope to use this project to help contribute to conve
 - Studies the amount of college-age individuals that have had a psychiatric disorders in the past year, comparing those in college vs those not in college
 - Focused on alcohol-disorders and drug-disorders compared to general mental health
 
-https://healthymindsnetwork.org/
+[The Healthy Minds Network] (https://healthymindsnetwork.org/)
 - The Healthy mind study is a valuable resource to our study because it conducts studies on the relationship between mental health and college experiences. Collecting data from thousands of participants across the various universities in America which is what we plan to examine in our own study.
 - They look at it from a multitude of scopes like race, field of study, type of degree, etc. We will also look at each and incorporate it into our own project, creating a better picture of health outcomes and experiences of college students.
 
