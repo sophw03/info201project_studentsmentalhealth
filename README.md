@@ -8,38 +8,37 @@ As mentioned previously, we hope to use this project to help contribute to conve
 
 ## Finding Data
 **Student mental health**
-https://www.kaggle.com/datasets/shariful07/student-mental-health
-
-Collected by a survey conducted on Google forms for university students at International Islamic University Malaysia in order to examine their current academic situation and mental health
-101 observations of different students 
-11 features in the data
+- https://www.kaggle.com/datasets/shariful07/student-mental-health
+- Collected by a survey conducted on Google forms for university students at International Islamic University Malaysia in order to examine their current academic situation and mental health
+- 101 observations of different students 
+- 11 features in the data
 
 **National Mental Health Services Survey**
-https://www.datafiles.samhsa.gov/dataset/national-mental-health-services-survey-2020-n-mhss-2020-ds0001 
+- https://www.datafiles.samhsa.gov/dataset/national-mental-health-services-survey-2020-n-mhss-2020-ds0001 
 
-An annual survey by the government to collect statistics from both private and public mental health facilities about their patrons’ needs
-12,275 observations 
-60 features in data
+- An annual survey by the government to collect statistics from both private and public mental health facilities about their patrons’ needs
+- 12,275 observations 
+- 60 features in data
 
 
 ## Background Research/Inspiration
 https://jamanetwork.com/journals/jamapsychiatry/article-abstract/482915
 
-Studies the amount of college-age individuals that have had a psychiatric disorders in the past year, comparing those in college vs those not in college
-Focused on alcohol-disorders and drug-disorders compared to general mental health
+- Studies the amount of college-age individuals that have had a psychiatric disorders in the past year, comparing those in college vs those not in college
+- Focused on alcohol-disorders and drug-disorders compared to general mental health
 
 https://healthymindsnetwork.org/
-The Healthy mind study is a valuable resource to our study because it conducts studies on the relationship between mental health and college experiences. Collecting data from thousands of participants across the various universities in America which is what we plan to examine in our own study.
-They look at it from a multitude of scopes like race, field of study, type of degree, etc. We will also look at each and incorporate it into our own project, creating a better picture of health outcomes and experiences of college students.
+- The Healthy mind study is a valuable resource to our study because it conducts studies on the relationship between mental health and college experiences. Collecting data from thousands of participants across the various universities in America which is what we plan to examine in our own study.
+- They look at it from a multitude of scopes like race, field of study, type of degree, etc. We will also look at each and incorporate it into our own project, creating a better picture of health outcomes and experiences of college students.
 
 https://ccmh.psu.edu/assets/docs/2015_CCMH_Report_1-18-2015-yq3vik.pdf 
-Annual report from 2015 that focused on highlight mental health trends from across universities
-Focuses on general information such as most reported mental health concern and creates comparatives statistics and data
+- Annual report from 2015 that focused on highlight mental health trends from across universities
+- Focuses on general information such as most reported mental health concern and creates comparatives statistics and data
 
 https://www.datafiles.samhsa.gov/ 
-Data archives for annual data reports about substance and mental health 
-The reports all focus more of treatments and statistics analysis than relationships between factors
+- Data archives for annual data reports about substance and mental health 
+- The reports all focus more of treatments and statistics analysis than relationships between factors
 
 https://www.ucsf.edu/news/2022/04/422611/48-young-adults-struggled-mental-health-mid-2021
-An artcile that lays out some background research about young adult mental health
-Focuses on the impact of the pandemic and the lack of mental health resources avaible
+- An artcile that lays out some background research about young adult mental health
+- Focuses on the impact of the pandemic and the lack of mental health resources avaible
