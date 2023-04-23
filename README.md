@@ -15,14 +15,13 @@ As mentioned previously, we hope to use this project to help contribute to conve
 
 **National Mental Health Services Survey**
 - https://www.datafiles.samhsa.gov/dataset/national-mental-health-services-survey-2020-n-mhss-2020-ds0001 
-
 - An annual survey by the government to collect statistics from both private and public mental health facilities about their patrons’ needs
 - 12,275 observations 
 - 60 features in data
 
 
 ## Background Research/Inspiration
-https://jamanetwork.com/journals/jamapsychiatry/article-abstract/482915
+[Mental Health of College Students and Their Non–College-Attending Peers] (https://jamanetwork.com/journals/jamapsychiatry/article-abstract/482915)
 
 - Studies the amount of college-age individuals that have had a psychiatric disorders in the past year, comparing those in college vs those not in college
 - Focused on alcohol-disorders and drug-disorders compared to general mental health
