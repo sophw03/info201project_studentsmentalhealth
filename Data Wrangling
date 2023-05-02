@@ -1,5 +1,8 @@
+#load packages 
 library(dplyr)
 library(stringr)
 
+#read dataframes used for project 
 df_1 <- read.csv("StudentMentalHealth.csv")
 df_2 <- read.csv()
+
