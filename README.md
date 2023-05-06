@@ -14,10 +14,10 @@ As mentioned previously, we hope to use this project to help contribute to conve
 - 11 features in the data
 
 **National Mental Health Services Survey**
-- https://www.datafiles.samhsa.gov/dataset/national-mental-health-services-survey-2020-n-mhss-2020-ds0001 
-- An annual survey by the government to collect statistics from both private and public mental health facilities about their patrons’ needs
-- 12,275 observations 
-- 60 features in data
+- https://www.cdc.gov/nchs/covid19/pulse/mental-health-care.htm
+- A survey by the National Center for Health Statistics to collect statistics about recent mental health care
+- 10,040 observations 
+- 15 features in data
 
 
 ## Background Research/Inspiration
