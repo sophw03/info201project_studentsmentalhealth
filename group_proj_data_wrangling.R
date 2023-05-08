@@ -7,19 +7,19 @@ library(ggplot2)
 df_1 <- read.csv("StudentMentalHealth.csv")
 df_2 <- read.csv("Mental_Health_Care_in_the_Last_4_Weeks.csv")
 
-
 # Merge the data frames
 df_2 <- df_2[df_2$Group == "By Age",]
 df_2 <- df_2[df_2$Subgroup == "18 - 29 years",]
 for (x in 1:nrow(df_2)){
-  age <- round(runif(1, 18, 24),)
+  age <- round(runif(1, 18, 29),)
   df_2[x, "Subgroup"] <- age
 }
 
-# Merge the data frames
-combo_df <- merge(df_1, df_2, by.x = "Age", by.y = "Subgroup", all.x = TRUE)
+# Generate new age subgroup column in df_2
+df_2$Age_Subgroup <- round(runif(nrow(df_2), 18, 29))
 
-
+# Merge the data frames by age subgroup
+combo_df <- merge(df_1, select(df_2, Age_Subgroup), by.x = "Age", by.y = "Age_Subgroup", all.x = TRUE)
 
 # Clean the data---------------------------------------------------------------------------------------------------------------------- 
 final_df <- combo_df[1:25000, ]
