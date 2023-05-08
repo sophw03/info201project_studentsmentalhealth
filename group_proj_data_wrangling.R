@@ -1,0 +1,149 @@
+# Libraries
+library(dplyr)
+library(stringr)
+library(ggplot2)
+
+# Read the data
+df_1 <- read.csv("StudentMentalHealth.csv")
+df_2 <- read.csv("Mental_Health_Care_in_the_Last_4_Weeks.csv")
+
+
+# Merge the data frames
+df_2 <- df_2[df_2$Group == "By Age",]
+df_2 <- df_2[df_2$Subgroup == "18 - 29 years",]
+for (x in 1:nrow(df_2)){
+  age <- round(runif(1, 18, 24),)
+  df_2[x, "Subgroup"] <- age
+}
+
+# Merge the data frames
+combo_df <- merge(df_1, df_2, by.x = "Age", by.y = "Subgroup", all.x = TRUE)
+
+
+
+# Clean the data---------------------------------------------------------------------------------------------------------------------- 
+final_df <- combo_df[1:25000, ]
+final_df <- subset(final_df, select = -c(Suppression.Flag))
+
+# Rename column "What.is.your.course." to "College_Major"
+colnames(final_df)[colnames(final_df) == "What.is.your.course."] <- "College_Major"
+
+# Convert Year of current study to lowercase and replace variations
+final_df$Your.current.year.of.Study <- tolower(final_df$Your.current.year.of.Study)
+final_df$Your.current.year.of.Study <- gsub("year", "year", final_df$Your.current.year.of.Study)
+
+# Create grade_level column based on Year of current study
+final_df$grade_level <- factor(final_df$Your.current.year.of.Study,
+                               levels = c("year 1", "year 2", "year 3", "year 4"),
+                               labels = c("Freshman", "Sophomore", "Junior", "Senior"))
+
+
+# Calculate the total count of people in each grade level
+total_counts <- table(final_df$grade_level)
+
+# Convert College_Major to lowercase
+final_df$College_Major <- tolower(final_df$College_Major)
+
+# Define categories and corresponding regular expressions
+categories <- c("Humanities", "Sciences", "Engineering", "Business")
+patterns <- c("islamic education|pendidikan islam|irkhs|usuluddin|fiqh",
+              "mathemathics|marine science|biomedical science|biotechnology",
+              "engineering|enm|engine|engin",
+              "bit|bcs|human resources|accounting|banking studies|business administration|econs|cts")
+
+
+
+
+
+
+# Determining if the major you choose affects the percentage of people with Depression------------------------------------------------
+
+# Creates a Function to assign category based on pattern matching
+assign_category <- function(major) {
+  for (i in seq_along(patterns)) {
+    if (grepl(patterns[i], major)) {
+      return(categories[i])
+    }
+  }
+  return("Other")
+}
+
+# Add a new column for category
+final_df$category <- sapply(final_df$College_Major, assign_category)
+
+# Print the unique categories
+unique_categories <- unique(final_df$category)
+print(unique_categories)
+
+# Calculate the total count of people in each category
+total_counts <- table(final_df$category)
+
+# Calculate the count of people with depression in each major
+depression_counts_major <- table(final_df$College_Major, final_df$Do.you.have.Depression.)
+
+# Calculate the total count of people in each major
+total_counts_major <- table(final_df$College_Major)
+
+# Calculate the percentage of people with depression within each major
+percentage_depression_major <- depression_counts_major[, "Yes"] / total_counts_major * 100
+
+# Create a data frame with the results for major
+summary_data_major <- data.frame(Major = names(percentage_depression_major),
+                                 Percentage_Depression = as.numeric(percentage_depression_major))
+
+# Plot the data for major
+ggplot(summary_data_major, aes(x = Major, y = Percentage_Depression)) +
+  geom_bar(stat = "identity", fill = "lightpink") +
+  labs(title = "Percentage of People with Depression by Major",
+       x = "Major",
+       y = "Percentage of People with Depression")
+
+
+
+
+
+
+
+#Create a new graph calculating the depression rates by age-------------------------------------------------------------------------- 
+
+# Calculate the count of people with depression in each age group
+depression_counts_age <- table(final_df$Age, final_df$Do.you.have.Depression.)
+
+# Calculate the total count of people in each age group
+total_counts_age <- table(final_df$Age)
+
+# Calculate the percentage of people with depression within each age group
+percentage_depression_age <- depression_counts_age[, "Yes"] / total_counts_age * 100
+
+# Create a data frame with the results for age
+summary_data_age <- data.frame(Age_Group = names(percentage_depression_age),
+                               Percentage_Depression = as.numeric(percentage_depression_age))
+
+# Plot the data for age
+ggplot(summary_data_age, aes(x = Age_Group, y = Percentage_Depression)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  labs(title = "Percentage of People with Depression by Age Group",
+       x = "Age Group",
+       y = "Percentage of People with Depression")
+
+#Create a new graph calculating the depression rates by GPA-------------------------------------------------------------------------- 
+
+# Calculate the count of people with depression in each GPA range
+depression_counts_gpa <- table(final_df$What.is.your.CGPA., final_df$Do.you.have.Depression.)
+
+# Calculate the total count of people in each GPA range
+total_counts_gpa <- table(final_df$What.is.your.CGPA.)
+
+# Calculate the percentage of people with depression within each GPA range
+percentage_depression_gpa <- depression_counts_gpa[, "Yes"] / total_counts_gpa * 100
+
+# Create a data frame with the results for GPA
+summary_data_gpa <- data.frame(GPA_Range = names(percentage_depression_gpa),
+                               Percentage_Depression = as.numeric(percentage_depression_gpa))
+
+# Plot the data for GPA
+ggplot(summary_data_gpa, aes(x = GPA_Range, y = Percentage_Depression)) +
+  geom_bar(stat = "identity", fill = "darkgreen") +
+  labs(title = "Percentage of People with Depression by GPA Range",
+       x = "GPA Range",
+       y = "Percentage of People with Depression")
