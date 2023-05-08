@@ -1,6 +1,7 @@
-library(dplyr)
 library(stringr)
 library(ggplot2)
+library(dplyr)
+
 
 # Read the data
 df_1 <- read.csv("Student Mental Health.csv")
@@ -15,14 +16,16 @@ for (x in 1:nrow(df_2)){
   df_2[x, "Subgroup"] <- age
 }
 
-# Merge the data frames
-combo_df <- merge(df_1, df_2)
+# Generate new age subgroup column in df_2
+df_2$Age_Subgroup <- round(runif(nrow(df_2), 18, 29))
+
+# Merge the data frames by age subgroup
+combo_df <- merge(df_1, select(df_2, Age_Subgroup), by.x = "Age", by.y = "Age_Subgroup", all.x = TRUE)
 
 
 
 # Clean the data---------------------------------------------------------------------------------------------------------------------- 
 final_df <- combo_df[1:25000, ]
-final_df <- subset(final_df, select = -c(Suppression.Flag))
 
 # Rename column "What.is.your.course." to "College_Major"
 colnames(final_df)[colnames(final_df) == "What.is.your.course."] <- "College_Major"
