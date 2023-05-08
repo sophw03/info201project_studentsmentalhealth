@@ -12,6 +12,9 @@ for (x in 1:nrow(df_2)){
   age <- round(runif(1, 18, 29),)
   df_2[x, "Subgroup"] <- age
 }
+
+
+----------------------------------------- #Cleaning the data ---------------------------------------------------------------------------------------------
 combo_df <- merge(df_1, df_2, by.x = "Age", by.y = "Subgroup", all.x = TRUE)
 
 # Clean the data
@@ -88,12 +91,6 @@ ggplot(summary_data_major, aes(x = Major, y = Percentage_Depression)) +
   labs(title = "Percentage of People with Depression by Major",
        x = "Major",
        y = "Percentage of People with Depression")
-
-
-
-
-
-
 
 ---------------------------------------- #Calculating the depression rates by age ------------------------------------------------------------------------- 
 # Calculate the total count of people in each grade level
