@@ -145,4 +145,4 @@ ggplot(summary_data_gpa, aes(x = GPA_Range, y = Percentage_Depression)) +
   geom_bar(stat = "identity", fill = "darkgreen") +
   labs(title = "Percentage of People with Depression by GPA Range",
        x = "GPA Range",
-       y = "Percentage of People with Depression")
+       y = "Percentage of People with Depression"
