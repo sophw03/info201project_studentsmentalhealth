@@ -1,8 +1,15 @@
-#load packages 
 library(dplyr)
 library(stringr)
+library(ggplot2)
 
-#read dataframes used for project 
-df_1 <- read.csv("StudentMentalHealth.csv")
+df_1 <- read.csv("Student Mental Health.csv")
 df_2 <- read.csv("Mental_Health_Care_in_the_Last_4_Weeks.csv")
 
+combo_df <- merge(df_1, df_2)
+
+final_df <- combo_df[1:25000, ]
+final_df$Suppression.Flag <- NULL
+
+#new column and value
+final_df$Age <- as.numeric(as.character(final_df$Age))
+final_df$grade_level <- cut(final_df$Age, breaks = c(18, 20, 22, 24, Inf), labels = c("Freshman", "Sophomore", "Junior", "Senior"))
