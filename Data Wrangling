@@ -49,8 +49,7 @@ patterns <- c("islamic education|pendidikan islam|irkhs|usuluddin|fiqh",
               "engineering|enm|engine|engin",
               "bit|bcs|human resources|accounting|banking studies|business administration|econs|cts")
 
-
-# Creates Function to assign category based on the patters
+# Creates Function to assign category based on the patterns
 assign_category <- function(major) {
   for (i in seq_along(patterns)) {
     if (grepl(patterns[i], major)) {
@@ -91,6 +90,7 @@ percentage_depression_age <- depression_counts_age[, "Yes"] / total_counts_age *
 # Create df with the results for age
 summary_data_age <- data.frame(Age_Group = names(percentage_depression_age),
                                Percentage_Depression = as.numeric(percentage_depression_age))
+
 # Calculate the people with depression in each GPA range
 depression_counts_gpa <- table(final_df$What.is.your.CGPA., final_df$Do.you.have.Depression.)
 
@@ -111,19 +111,19 @@ final_df$Major_Category <- factor(final_df$category, levels = major_categories)
 # Create new continuous/numerical variable: Age_Group_Num
 final_df$Age_Group_Num <- as.numeric(final_df$Age)
 
-# Create a sum of df for major
+# Create a summary data frame for major
 summary_data_major <- aggregate(Do.you.have.Depression. ~ Major_Category, data = final_df, FUN = function(x) mean(x == "Yes") * 100)
 colnames(summary_data_major) <- c("Major_Category", "Percentage_Depression")
 
-# Print the summ df for major
+# Print the summary data frame for major
 print(summary_data_major)
 
 # Create Visualizations 
 # Plot the data for major
-ggplot(summary_data_major, aes(x = Major, y = Percentage_Depression)) +
+ggplot(summary_data_major, aes(x = Major_Category, y = Percentage_Depression)) +
   geom_bar(stat = "identity", fill = "lightpink") +
-  labs(title = "Percentage of People with Depression by Major",
-       x = "Major",
+  labs(title = "Percentage of People with Depression by Major Category",
+       x = "Major Category",
        y = "Percentage of People with Depression")
 
 
