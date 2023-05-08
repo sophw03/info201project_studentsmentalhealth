@@ -1,9 +1,11 @@
 library(dplyr)
+library(stringr)
 library(ggplot2)
 
 # Read the data
 df_1 <- read.csv("Student Mental Health.csv")
 df_2 <- read.csv("Mental_Health_Care_in_the_Last_4_Weeks.csv")
+
 
 # Merge the data frames
 df_2 <- df_2[df_2$Group == "By Age",]
@@ -13,11 +15,12 @@ for (x in 1:nrow(df_2)){
   df_2[x, "Subgroup"] <- age
 }
 
+# Merge the data frames
+combo_df <- merge(df_1, df_2)
 
------------------------------------------ #Cleaning the data ---------------------------------------------------------------------------------------------
-combo_df <- merge(df_1, df_2, by.x = "Age", by.y = "Subgroup", all.x = TRUE)
 
-# Clean the data
+
+# Clean the data---------------------------------------------------------------------------------------------------------------------- 
 final_df <- combo_df[1:25000, ]
 final_df <- subset(final_df, select = -c(Suppression.Flag))
 
@@ -50,7 +53,9 @@ patterns <- c("islamic education|pendidikan islam|irkhs|usuluddin|fiqh",
 
 
 
------------------------------------------- #Calculating depression rates by major --------------------------------------------------------------------------
+
+
+# Determining if the major you choose affects the percentage of people with Depression------------------------------------------------
 
 # Creates a Function to assign category based on pattern matching
 assign_category <- function(major) {
@@ -92,9 +97,13 @@ ggplot(summary_data_major, aes(x = Major, y = Percentage_Depression)) +
        x = "Major",
        y = "Percentage of People with Depression")
 
----------------------------------------- #Calculating the depression rates by age ------------------------------------------------------------------------- 
-# Calculate the total count of people in each grade level
-total_counts <- table(final_df$grade_level)
+
+
+
+
+
+
+#Create a new graph calculating the depression rates by age-------------------------------------------------------------------------- 
 
 # Calculate the count of people with depression in each age group
 depression_counts_age <- table(final_df$Age, final_df$Do.you.have.Depression.)
@@ -116,9 +125,7 @@ ggplot(summary_data_age, aes(x = Age_Group, y = Percentage_Depression)) +
        x = "Age Group",
        y = "Percentage of People with Depression")
 
------------------------------------------ #Calculating the depression rates by GPA ------------------------------------------------------------------------- 
-  # Calculate the total count of people in each GPA range
-  total_counts <- table(final_df$What.is.your.CGPA.)
+#Create a new graph calculating the depression rates by GPA-------------------------------------------------------------------------- 
 
 # Calculate the count of people with depression in each GPA range
 depression_counts_gpa <- table(final_df$What.is.your.CGPA., final_df$Do.you.have.Depression.)
