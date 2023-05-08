@@ -22,7 +22,7 @@ df_2$Age_Subgroup <- round(runif(nrow(df_2), 18, 29))
 combo_df <- merge(df_1, select(df_2, Age_Subgroup), by.x = "Age", by.y = "Age_Subgroup", all.x = TRUE)
 
 # Clean the data---------------------------------------------------------------------------------------------------------------------- 
-final_df <- combo_df[1:25000, ]
+final_df <- combo_df
 final_df <- subset(final_df, select = -c(Suppression.Flag))
 
 # Rename column "What.is.your.course." to "College_Major"
