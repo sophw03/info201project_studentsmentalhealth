@@ -1,15 +1,69 @@
 library(dplyr)
-library(stringr)
 library(ggplot2)
 
+# Read the data
 df_1 <- read.csv("Student Mental Health.csv")
 df_2 <- read.csv("Mental_Health_Care_in_the_Last_4_Weeks.csv")
 
+# Merge the data frames
 combo_df <- merge(df_1, df_2)
 
+# Clean the data
 final_df <- combo_df[1:25000, ]
-final_df$Suppression.Flag <- NULL
+final_df <- subset(final_df, select = -c(Suppression.Flag))
 
-#new column and value
+# Rename column "What.is.your.course." to "College_Major"
+colnames(final_df)[colnames(final_df) == "What.is.your.course."] <- "College_Major"
+
+# Convert Age to numeric
 final_df$Age <- as.numeric(as.character(final_df$Age))
-final_df$grade_level <- cut(final_df$Age, breaks = c(18, 20, 22, 24, Inf), labels = c("Freshman", "Sophomore", "Junior", "Senior"))
+
+# Create grade_level column
+final_df$grade_level <- cut(final_df$Age, breaks = c(18, 20, 22, 24, Inf), labels = c("Freshman", "Sophomore", "Junior", "Senior"), include.lowest = TRUE)
+
+# Convert College_Major to lowercase
+final_df$College_Major <- tolower(final_df$College_Major)
+
+# Define categories and corresponding regular expressions
+categories <- c("Humanities", "Sciences", "Engineering", "Business")
+patterns <- c("islamic education|pendidikan islam|irkhs|usuluddin|fiqh",
+              "mathemathics|marine science|biomedical science|biotechnology",
+              "engineering|enm|engine|engin",
+              "bit|bcs|human resources|accounting|banking studies|business administration|econs|cts")
+
+# Function to assign category based on pattern matching
+assign_category <- function(major) {
+  for (i in seq_along(patterns)) {
+    if (grepl(patterns[i], major)) {
+      return(categories[i])
+    }
+  }
+  return("Other")
+}
+
+# Add a new column for category
+final_df$category <- sapply(final_df$College_Major, assign_category)
+
+# Print the unique categories
+unique_categories <- unique(final_df$category)
+print(unique_categories)
+
+# Calculate the total count of people in each category
+total_counts <- table(final_df$category)
+
+# Calculate the count of people with depression in each category
+depression_counts <- table(final_df$category, final_df$Do.you.have.Depression.)
+
+# Calculate the percentage of people with depression within each category
+percentage_depression <- depression_counts[, "Yes"] / total_counts * 100
+
+# Create a data frame with the results
+summary_data <- data.frame(Category = names(percentage_depression),
+                           Percentage_Depression = as.numeric(percentage_depression))
+
+# Plot the data
+ggplot(summary_data, aes(x = Category, y = Percentage_Depression)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(title = "Percentage of People with Depression by College Major Category",
+       x = "Category",
+       y = "Percentage of People with Depression")
