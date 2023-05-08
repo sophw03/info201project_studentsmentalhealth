@@ -23,7 +23,7 @@ combo_df <- merge(df_1, select(df_2, Age_Subgroup), by.x = "Age", by.y = "Age_Su
 
 # Clean the data---------------------------------------------------------------------------------------------------------------------- 
 final_df <- combo_df
-final_df <- subset(final_df, select = -c(Suppression.Flag))
+
 
 # Rename column "What.is.your.course." to "College_Major"
 colnames(final_df)[colnames(final_df) == "What.is.your.course."] <- "College_Major"
