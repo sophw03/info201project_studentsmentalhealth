@@ -111,11 +111,11 @@ final_df$Major_Category <- factor(final_df$category, levels = major_categories)
 # Create new continuous/numerical variable: Age_Group_Num
 final_df$Age_Group_Num <- as.numeric(final_df$Age)
 
-# Create a summary data frame for major
+# Create a summary data frame for each major
 summary_data_major <- aggregate(Do.you.have.Depression. ~ Major_Category, data = final_df, FUN = function(x) mean(x == "Yes") * 100)
 colnames(summary_data_major) <- c("Major_Category", "Percentage_Depression")
 
-# Print the summary data frame for major
+# Print the summary data frame for each major
 print(summary_data_major)
 
 # Create Visualizations 
