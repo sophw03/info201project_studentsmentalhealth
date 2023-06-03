@@ -95,10 +95,16 @@ labels <- c("18", "19-20", "21-22", "23-24")
 final_df$Age_Group <- cut(final_df$Age, breaks = breaks, labels = labels)
 
 # Create new continuous/numerical variable: Age_Group_Num
-final_df$Age_Group_Num <- as.numeric(final_df$Age)
+final_df$Age_Group_Num <- as.numeric(final_df$Age_Group)
 
-# Remove NA values from Age_Group_Num
-final_df$Age_Group_Num <- na.omit(final_df$Age_Group_Num)
+# Calculate the number of unique age groups
+num_age_groups <- length(unique(final_df$Age_Group))
+
+# Generate a sequence of values based on the number of age groups
+replacement_values <- seq(1, num_age_groups)
+
+# replacement values to Age_Group_Num
+final_df$Age_Group_Num <- replacement_values
 
 # Calculate the people with depression in each age group
 depression_counts_age <- table(final_df$Age_Group, final_df$Do.you.have.Depression)
