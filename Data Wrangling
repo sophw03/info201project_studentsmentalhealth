@@ -118,58 +118,45 @@ percentage_depression_age <- depression_counts_age[, "Yes"] / total_counts_age *
 # Create a df with the results for age
 summary_data_age <- data.frame(Age_Group = rownames(percentage_depression_age),
                                Percentage_Depression = as.numeric(percentage_depression_age))
+# Calculate the percentage of people with depression within each age group
+percentage_depression_age <- depression_counts_age[, "Yes"] / total_counts_age * 100
 
+# Calculate the people with anxiety in each age group
+anxiety_counts_age <- table(final_df$Age_Group, final_df$Do.you.have.Anxiety.)
+percentage_anxiety_age <- anxiety_counts_age[, "Yes"] / total_counts_age * 100
 
-# Calculate the people with depression in each GPA range
+# Calculate the people with panic attacks in each age group
+panic_counts_age <- table(final_df$Age_Group, final_df$Do.you.have.Panic.attack.)
+percentage_panic_attacks_age <- panic_counts_age[, "Yes"] / total_counts_age * 100
+
+# Create a df with the results for age
+summary_data_age <- data.frame(Age_Group = rownames(percentage_depression_age),
+                               Percentage_Depression = as.numeric(percentage_depression_age),
+                               Percentage_Anxiety = as.numeric(percentage_anxiety_age),
+                               Percentage_Panic_Attacks = as.numeric(percentage_panic_attacks_age))
+summary_data_age$category <- summary_data_age$Age_Group
+
+# Calculate the people with depression, anxiety, and panic attacks in each GPA range
 depression_counts_gpa <- table(final_df$What.is.your.CGPA., final_df$Do.you.have.Depression)
+anxiety_counts_gpa <- table(final_df$What.is.your.CGPA., final_df$Do.you.have.Anxiety.)
+panic_counts_gpa <- table(final_df$What.is.your.CGPA., final_df$Do.you.have.Panic.attack.)
 
 # Calculate the total count of people in each GPA range
 total_counts_gpa <- table(final_df$What.is.your.CGPA.)
 
-# Calculate the percentage of people with depression within each GPA range
+# Calculate the percentage of people with depression, anxiety, and panic attacks within each GPA range
 percentage_depression_gpa <- depression_counts_gpa[, "Yes"] / total_counts_gpa * 100
+percentage_anxiety_gpa <- anxiety_counts_gpa[, "Yes"] / total_counts_gpa * 100
+percentage_panic_attacks_gpa <- panic_counts_gpa[, "Yes"] / total_counts_gpa * 100
 
-# Create the data frame with the GPA range and percentage of depression
-summary_data_gpa <- data.frame(GPA_Range = c("0 - 1.99", "2.00 - 2.49", "2.50 - 2.99", "3.00 - 3.49", "3.50 - 4.00"),
-                               Percentage_Depression = c(0.00000, 0.00000, 75.00000, 43.73957, 25.70978))
+# Create the data frame with the GPA range and percentages
+summary_data_gpa <- data.frame(
+  GPA_Range = c("0 - 1.99", "2.00 - 2.49", "2.50 - 2.99", "3.00 - 3.49", "3.50 - 4.00", "Unknown"),
+  Percentage_Depression = as.numeric(percentage_depression_gpa),
+  Percentage_Anxiety = as.numeric(percentage_anxiety_gpa),
+  Percentage_Panic_Attacks = as.numeric(percentage_panic_attacks_gpa)
 
-# Visualization for data for GPA
-ggplot(summary_data_gpa, aes(x = GPA_Range, y = Percentage_Depression)) +
-  geom_bar(stat = "identity", fill = "darkgreen") +
-  labs(title = "Percentage of People with Depression by GPA Range",
-       x = "GPA Range",
-       y = "Percentage of People with Depression")
-
-# Visualization for depression for age
-ggplot(summary_data_age, aes(x = Age_Group, y = Percentage_Depression)) +
-  geom_bar(stat = "identity", fill = "lavender") +
-  labs(title = "Percentage of People with Depression by Age",
-       x = "Age",
-       y = "Percentage of People with Depression")
-
-
-# Visualization for major 
-ggplot(summary_data_major, aes(x = Major, y = Percentage_Depression)) +
-  geom_bar(stat = "identity", fill = "lightpink") +
-  labs(title = "Percentage of People with Depression by Major",
-       x = "Major",
-       y = "Percentage of People with Depression")
-
-# Visualization for anxiety
-ggplot(summary_data_major, aes(x = Major, y = Percentage_Anxiety)) +
-  geom_bar(stat = "identity", fill = "lightblue") +
-  labs(title = "Percentage of People with Anxiety by Major",
-       x = "Major",
-       y = "Percentage of People with Anxiety")
-
-
-
-# Visualization for panic attacks
-ggplot(summary_data_major, aes(x = Major, y = Percentage_Panic_Attacks)) +
-  geom_bar(stat = "identity", fill = "lightgreen") +
-  labs(title = "Percentage of People with Panic Attacks by Major y",
-       x = "Major",
-       y = "Percentage of People with Panic Attacks")
+)
 
 
 # Create a bar plot for total summary 
@@ -178,17 +165,4 @@ summary_data_major <- data.frame(
   Percentage_Depression = c(8.333333, 20.512821, 7.142857, 19.127517, 0.000000),
   Percentage_Anxiety = c(46.5053763, 25.2136752, 15.7142857, 0.3681946, 8.5365854),
   Percentage_Panic_Attacks = c(32.7956989, 32.0512821, 25.0000000, 0.5874566, 8.5365854)
-)
-
-# Bar plot
-barplot(
-  t(as.matrix(summary_data_major[, -1])),
-  beside = TRUE,
-  col = c("lightpink", "lightblue", "lightgreen"),
-  legend.text = c("Depression", "Anxiety", "Panic Attacks"),
-  args.legend = list(x = "bottom"),
-  ylim = c(0, 50),
-  xlab = "Major",
-  ylab = "Percentage",
-  main = "Percentage of People with Depression, Anxiety, and Panic Attacks by Major"
 )
