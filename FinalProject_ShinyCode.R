@@ -21,14 +21,14 @@ ui <- fluidPage(
     
     # Story 1
     tabPanel("Story 1",
-             h2("The Data Set"),
-             p("Talk about the data set.")
+             h2("Story 1"),
+             p("...")
     ),
     
     # Story 2
     tabPanel("Story 2",
-             h3("Limitations and Problems"),
-             p("Describe the limitations and problems of the study.")
+             h3("Story 2"),
+             p("...")
     ),
     
     # Story 3
