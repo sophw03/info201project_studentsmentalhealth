@@ -1,5 +1,6 @@
 # Shiny Code for Final Project
 
+#libraries 
 library(shiny)
 library(ggplot2)
 
@@ -8,26 +9,29 @@ source("final.R")
 
 # UI
 ui <- fluidPage(
-  titlePanel("Insert Title"),
+  titlePanel("Mental Health in the College System"),
   
   # Introduction page
-  tabPanel("Introduction",
-           h1("Introduction"),
-           p(" our intro stuff ")),
-  
-  # Graph page
-  tabPanel("Graph",
-           sidebarLayout(
-             sidebarPanel(
-               h4("Navigation"),
-               br(),
-               h5("Select Graph:"),
-               radioButtons("graph_type", label = NULL, choices = c("Depression", "Anxiety", "Panic Attacks"), selected = "Depression")
-             ),
-             mainPanel(
-               plotOutput("selected_plot")
+  tabsetPanel(
+    tabPanel("Introduction",
+             h1("Introduction"),
+             p("Talking about the importance of Mental Health and the problems in college, discussing why it's interesting and why we should care.")
+    ),
+    
+    # Graph page
+    tabPanel("Graph",
+             sidebarLayout(
+               sidebarPanel(
+                 h4("Navigation"),
+                 br(),
+                 h5("Select Graph:"),
+                 radioButtons("graph_type", label = NULL, choices = c("Depression", "Anxiety", "Panic Attacks"), selected = "Depression")
+               ),
+               mainPanel(
+                 plotOutput("selected_plot")
+               )
              )
-           )
+    )
   )
 )
 
