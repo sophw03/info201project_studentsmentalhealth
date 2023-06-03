@@ -4,10 +4,10 @@ library(stringr)
 library(ggplot2)
 
 # Read the data
-df_1 <- read.csv("StudentMentalHealth.csv")
+df_1 <- read.csv("Student Mental Health.csv")
 df_2 <- read.csv("Mental_Health_Care_in_the_Last_4_Weeks.csv")
 
-# Merge the data frames
+# Merge the dfs
 df_2 <- df_2[df_2$Group == "By Age",]
 df_2 <- df_2[df_2$Subgroup == "18 - 29 years",]
 for (x in 1:nrow(df_2)){
@@ -22,34 +22,30 @@ df_2$Age_Subgroup <- round(runif(nrow(df_2), 18, 29))
 combo_df <- merge(df_1, select(df_2, Age_Subgroup), by.x = "Age", by.y = "Age_Subgroup", all.x = TRUE)
 final_df <- combo_df[1:25000, ]
 
-
 # Rename column "What.is.your.course." to "College_Major" to look cleaner 
 colnames(final_df)[colnames(final_df) == "What.is.your.course."] <- "College_Major"
 
-# Change Year to lowercase to replace variations
+# Change Year to lowercase 
 final_df$Your.current.year.of.Study <- tolower(final_df$Your.current.year.of.Study)
 final_df$Your.current.year.of.Study <- gsub("year", "year", final_df$Your.current.year.of.Study)
 
-# Created grade_level column based on year of current study
+# Created grade level column based on year of current study
 final_df$grade_level <- factor(final_df$Your.current.year.of.Study,
                                levels = c("year 1", "year 2", "year 3", "year 4"),
                                labels = c("Freshman", "Sophomore", "Junior", "Senior"))
 
-
-# Calculate total count of people in each grade level
-total_counts <- table(final_df$grade_level)
-
 # Convert College_Major to lowercase to create similar groupings
 final_df$College_Major <- tolower(final_df$College_Major)
 
-# Define categories and corresponding regular expressions
-categories <- c("Humanities", "Sciences", "Engineering", "Business")
+# Create a simpler category for majors 
+categories <- c("Humanities", "Sciences", "Engineering", "Business", "Other")
 patterns <- c("islamic education|pendidikan islam|irkhs|usuluddin|fiqh",
               "mathemathics|marine science|biomedical science|biotechnology",
               "engineering|enm|engine|engin",
-              "bit|bcs|human resources|accounting|banking studies|business administration|econs|cts")
+              "bit|bcs|human resources|accounting|banking studies|business administration|econs|cts",
+              ".*")
 
-# Creates Function to assign category based on the patterns
+# function to assign category based on the patterns
 assign_category <- function(major) {
   for (i in seq_along(patterns)) {
     if (grepl(patterns[i], major)) {
@@ -59,85 +55,115 @@ assign_category <- function(major) {
   return("Other")
 }
 
-# Add new column for category
+# new column for category
 final_df$category <- sapply(final_df$College_Major, assign_category)
 
-# Calculate the total of people in each category
+# Calculate the total count of people in each category
 total_counts_category <- table(final_df$category)
 
-# Calculate the people with depression in each major
-depression_counts_major <- table(final_df$category, final_df$Do.you.have.Depression.)
+# Calculate the people with depression, anxiety, and panic attacks in each major
+depression_counts_major <- table(final_df$category, final_df$Do.you.have.Depression., final_df$Do.you.have.Anxiety., final_df$Do.you.have.Panic.attack.)
 
-# Calculate the total of people in each major
-total_counts_major <- total_counts_category
+# Calculate the total count of people in each major
+total_counts_major <- table(final_df$category)
 
 # Calculate the percentage of people with depression within each major
-percentage_depression_major <- depression_counts_major[, "Yes"] / total_counts_major * 100
+percentage_depression_major <- depression_counts_major[, , , "Yes"] / rowSums(depression_counts_major) * 100
 
-# Create df with the results for major
-summary_data_major <- data.frame(Major = names(percentage_depression_major),
-                                 Percentage_Depression = as.numeric(percentage_depression_major))
+# Calculate the people with anxiety in each major
+anxiety_counts_major <- table(final_df$category, final_df$Do.you.have.Anxiety.)
+percentage_anxiety_major <- anxiety_counts_major[, "Yes"] / total_counts_major * 100
 
-# Calculate people with depression in each age group
-depression_counts_age <- table(final_df$Age, final_df$Do.you.have.Depression.)
+# Calculate the people with panic attacks in each major
+panic_counts_major <- table(final_df$category, final_df$Do.you.have.Panic.attack.)
+percentage_panic_attacks_major <- panic_counts_major[, "Yes"] / total_counts_major * 100
 
-# Calculate the total of people in each age group
-total_counts_age <- table(final_df$Age)
+# df with the results for major
+summary_data_major <- data.frame(Major = rownames(percentage_depression_major),
+                                 Percentage_Depression = as.numeric(percentage_depression_major),
+                                 Percentage_Anxiety = as.numeric(percentage_anxiety_major),
+                                 Percentage_Panic_Attacks = as.numeric(percentage_panic_attacks_major))
+summary_data_major$category <- summary_data_major$Major
 
-# Calculate percentage of people with depression within each age group
-percentage_depression_age <- depression_counts_age[, "Yes"] / total_counts_age * 100
+# breaks for age groups
+breaks <- c(18, 19, 21, 23, 25)
 
-# Create df with the results for age
-summary_data_age <- data.frame(Age_Group = names(percentage_depression_age),
-                               Percentage_Depression = as.numeric(percentage_depression_age))
+# labels for age groups
+labels <- c("18", "19-20", "21-22", "23-24")
 
-# Calculate the people with depression in each GPA range
-depression_counts_gpa <- table(final_df$What.is.your.CGPA., final_df$Do.you.have.Depression.)
-
-# Calculate the total of people in each GPA range
-total_counts_gpa <- table(final_df$What.is.your.CGPA.)
-
-# Calculate percentage of people with depression within each GPA range
-percentage_depression_gpa <- depression_counts_gpa[, "Yes"] / total_counts_gpa * 100
-
-# Create df with the results for GPA
-summary_data_gpa <- data.frame(GPA_Range = names(percentage_depression_gpa),
-                               Percentage_Depression = as.numeric(percentage_depression_gpa))
-
-# Create new categorical variable called Major_Category to summarize 
-major_categories <- c("Humanities", "Sciences", "Engineering", "Business", "Other")
-final_df$Major_Category <- factor(final_df$category, levels = major_categories)
+# Add Age_Group
+final_df$Age_Group <- cut(final_df$Age, breaks = breaks, labels = labels)
 
 # Create new continuous/numerical variable: Age_Group_Num
-final_df$Age_Group_Num <- as.numeric(final_df$Age)
+final_df$Age_Group_Num <- as.numeric(final_df$Age_Group)
 
-# Create a summary data frame for each major
-summary_data_major <- aggregate(Do.you.have.Depression. ~ Major_Category, data = final_df, FUN = function(x) mean(x == "Yes") * 100)
-colnames(summary_data_major) <- c("Major_Category", "Percentage_Depression")
+# Calculate the number of unique age groups
+num_age_groups <- length(unique(final_df$Age_Group))
 
-# Print the summary data frame for each major
-print(summary_data_major)
+# Generate a sequence of values based on the number of age groups
+replacement_values <- seq(1, num_age_groups)
 
-# Create Visualizations 
-# Plot the data for major
-ggplot(summary_data_major, aes(x = Major_Category, y = Percentage_Depression)) +
-  geom_bar(stat = "identity", fill = "lightpink") +
-  labs(title = "Percentage of People with Depression by Major Category",
-       x = "Major Category",
-       y = "Percentage of People with Depression")
+# replacement values to Age_Group_Num
+final_df$Age_Group_Num <- replacement_values
+
+# Calculate the people with depression in each age group
+depression_counts_age <- table(final_df$Age_Group, final_df$Do.you.have.Depression)
+
+# Calculate the total count of people in each age group
+total_counts_age <- table(final_df$Age_Group)
+
+# Calculate the percentage of people with depression within each age group
+percentage_depression_age <- depression_counts_age[, "Yes"] / total_counts_age * 100
+
+# Create a df with the results for age
+summary_data_age <- data.frame(Age_Group = rownames(percentage_depression_age),
+                               Percentage_Depression = as.numeric(percentage_depression_age))
+# Calculate the percentage of people with depression within each age group
+percentage_depression_age <- depression_counts_age[, "Yes"] / total_counts_age * 100
+
+# Calculate the people with anxiety in each age group
+anxiety_counts_age <- table(final_df$Age_Group, final_df$Do.you.have.Anxiety.)
+percentage_anxiety_age <- anxiety_counts_age[, "Yes"] / total_counts_age * 100
+
+# Calculate the people with panic attacks in each age group
+panic_counts_age <- table(final_df$Age_Group, final_df$Do.you.have.Panic.attack.)
+percentage_panic_attacks_age <- panic_counts_age[, "Yes"] / total_counts_age * 100
+
+# Create a df with the results for age
+summary_data_age <- data.frame(Age_Group = rownames(percentage_depression_age),
+                               Percentage_Depression = as.numeric(percentage_depression_age),
+                               Percentage_Anxiety = as.numeric(percentage_anxiety_age),
+                               Percentage_Panic_Attacks = as.numeric(percentage_panic_attacks_age))
+summary_data_age$category <- summary_data_age$Age_Group
+
+# Calculate the people with depression, anxiety, and panic attacks in each GPA range
+depression_counts_gpa <- table(final_df$What.is.your.CGPA., final_df$Do.you.have.Depression)
+anxiety_counts_gpa <- table(final_df$What.is.your.CGPA., final_df$Do.you.have.Anxiety.)
+panic_counts_gpa <- table(final_df$What.is.your.CGPA., final_df$Do.you.have.Panic.attack.)
+
+# Calculate the total count of people in each GPA range
+total_counts_gpa <- table(final_df$What.is.your.CGPA.)
+
+# Calculate the percentage of people with depression, anxiety, and panic attacks within each GPA range
+percentage_depression_gpa <- depression_counts_gpa[, "Yes"] / total_counts_gpa * 100
+percentage_anxiety_gpa <- anxiety_counts_gpa[, "Yes"] / total_counts_gpa * 100
+percentage_panic_attacks_gpa <- panic_counts_gpa[, "Yes"] / total_counts_gpa * 100
+
+# Create the df with the GPA range and percentages
+summary_data_gpa <- data.frame(
+  GPA_Range = c("0 - 1.99", "2.00 - 2.49", "2.50 - 2.99", "3.00 - 3.49", "3.50 - 4.00", "Unknown"),
+  Percentage_Depression = as.numeric(percentage_depression_gpa),
+  Percentage_Anxiety = as.numeric(percentage_anxiety_gpa),
+  Percentage_Panic_Attacks = as.numeric(percentage_panic_attacks_gpa)
+
+)
 
 
-# Plot the data for age
-ggplot(summary_data_age, aes(x = Age_Group, y = Percentage_Depression)) +
-  geom_bar(stat = "identity", fill = "lightblue") +
-  labs(title = "Percentage of People with Depression by Age Group",
-       x = "Age Group",
-       y = "Percentage of People with Depression")
+# Create bar plot for total summary 
+summary_data_major <- data.frame(
+  Major = c("Business", "Engineering", "Humanities", "Other", "Sciences"),
+  Percentage_Depression = c(8.333333, 20.512821, 7.142857, 19.127517, 0.000000),
+  Percentage_Anxiety = c(46.5053763, 25.2136752, 15.7142857, 0.3681946, 8.5365854),
+  Percentage_Panic_Attacks = c(32.7956989, 32.0512821, 25.0000000, 0.5874566, 8.5365854)
+)
 
-
-# Plot the data for GPA
-ggplot(summary_data_gpa, aes(x = GPA_Range, y = Percentage_Depression)) +
-  geom_bar(stat = "identity", fill = "darkgreen") +
-  labs(title = "Percentage of People with Depression by GPA Range",
-       x = "GPA Range",
-       y = "Percentage of People with Depression")
