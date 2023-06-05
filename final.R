@@ -4,7 +4,7 @@ library(stringr)
 library(ggplot2)
 
 # Read the data
-df_1 <- read.csv("Student Mental Health.csv")
+df_1 <- read.csv("StudentMentalHealth.csv")
 df_2 <- read.csv("Mental_Health_Care_in_the_Last_4_Weeks.csv")
 
 # Merge the dfs
