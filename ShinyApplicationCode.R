@@ -66,7 +66,11 @@ ui <- fluidPage(
                mainPanel(
                  plotOutput("story1_plot")
                )
-             )
+             ),
+             p("Mental health is not something that dissapears overnight. It's a struggle that can lasts life times and changes very suddenly. The
+                statistics above showing the percentage of specific age groups with mental health struggles examplifies this. Examining it, depression 
+                appears to stay fairly constant across the age groups while the percentage of students with anxiety and panic attacks flucuates by year. 
+                Once again, this highlights what was previously stated about mental health.")
     ),
     ( the data story focuses on examining the percentage of college students with mental health condition,
      it explores the prevalence anf trends of mental health issue among the college students. Using a combination
