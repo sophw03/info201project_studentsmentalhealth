@@ -44,10 +44,13 @@ ui <- fluidPage(
                will help those struggling to not feel alone and help others begin to understand the impact mental health can have on our lives."),
              h3("Data Stories"),
              h4("The Percentage of College Students with Mental Health Conditions"),
-             p("Add in brief description and how we apporached it "),
+             p("The data story focuses on examining the percentage of college students with mental health conditions. It explores the prevalence and 
+                trends of mental health issues among college students. Using a combination of survey, and data analysis to provide a better 
+                understanding."),
              br(),
              h4("The Impact of Mental Health on College Students Academic Performance"),
-             p("Add in brief description and how we apporached it "),
+             p("The data story aims to investigate the impact of mental health on college students academically. We want to highlight the challenges 
+                faced by students to help improve their well-being and educational success."),
              br(),
              h4("How your Major could Affect your Mental Health"),
              p("Add in brief description and how we apporached it "),
