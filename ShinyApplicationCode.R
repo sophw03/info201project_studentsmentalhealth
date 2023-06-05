@@ -4,6 +4,7 @@
 library(shiny)
 library(ggplot2)
 
+
 # Source the final data frame
 source("final.R")
 
@@ -18,20 +19,20 @@ ui <- fluidPage(
              h1("Introduction"),
              p("Talking about the importance of Mental Health and the problems in college, discussing why it's interesting and why we should care."),
              br(),
-             h3("Question or Story 1: "),
+             h3("Story 1: The Percentage of College Students with Mental Health Conditions"),
              p("Add in brief description and how we apporached it "),
              br(),
-             h3("Question or Story 2:"),
+             h3("Story 2: The Impact of Mental Health on College Students Academic Performance"),
              p("Add in brief description and how we apporached it "),
              br(),
-             h3("Question or Story 3:"),
+             h3("Story 3: How your Major could affect your Mental Health"),
              p("Add in brief description and how we apporached it "),
              p(""),
              br(),
     ),
     
     # Story 1 Page 
-    tabPanel("The Percentage of College Students with Depression",
+    tabPanel("The Percentage of College Students with Mental Health Conditions",
              sidebarLayout(
                sidebarPanel(
                  h4("Navigation"),
@@ -61,7 +62,7 @@ ui <- fluidPage(
     ),
     
     # Story 3 Page
-    tabPanel("How your Major could affect Mental Health",
+    tabPanel("How your Major could affect your Mental Health",
              sidebarLayout(
                sidebarPanel(
                  h4("Navigation"),
