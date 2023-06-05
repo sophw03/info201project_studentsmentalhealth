@@ -17,7 +17,7 @@ In conclusion, our research aims to serve as a platform to amplify these convers
 - 11 features in the data (columns)
 
 **National Mental Health Services Survey**
-- Mental_Health_Care_in_the_Last_4_weeks.csv
+- Mental_Health_Care_in_the_Last_4_Weeks.csv
 - https://www.cdc.gov/nchs/covid19/pulse/mental-health-care.htm
 - The data was collected by the National Center for Health Statistics to gather statistics about recent mental health care
 - 10,040 observations (rows)
