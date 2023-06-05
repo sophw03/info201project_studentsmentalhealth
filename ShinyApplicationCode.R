@@ -104,10 +104,10 @@ ui <- fluidPage(
                  plotOutput("story3_plot")
                )
              ),
-             p("Shown above are four bar graph showing the percentage of people with depression, anxiety, and panic attacks grouped
+             p("Shown above are bar graph showing the percentage of people with depression, anxiety, and panic attacks grouped
                 by major. As shown by the differences in percentages, majors such as busniess and engineering have a higher affiliation
                 with students experiencing mental health concerns. While compared to the other three degree catagories, the other and 
-                humanaities catagory shown much lower percentages. While all shown percentages are under 50%, there is no denying the
+                sciences catagory shown much lower percentages. While all shown percentages are under 50%, there is no denying the
                 relationship between mental health and univeristy.")
     ),
     
