@@ -39,14 +39,17 @@ ui <- fluidPage(
              We aim to provide useful information on mental health using data analytics and visualization tools. We want to bring attention 
              to the importance of mental health. We hope to highlight the critical but often overlooked issue of mental health disparities 
              among college students, allowing for a better understanding of how college living affects mental health."),
+             p("Our research focuses mostly on data surronding depression, anxiety, and panic attacks, but these are not the only form
+               of mental health struggles. Mental health affects many different people in many different way. We also hope that our project 
+               will help those struggling to not feel alone and help others begin to understand the impact mental health can have on our lives."),
              h3("Data Stories"),
-             h4("Story 1: The Percentage of College Students with Mental Health Conditions"),
+             h4("The Percentage of College Students with Mental Health Conditions"),
              p("Add in brief description and how we apporached it "),
              br(),
-             h4("Story 2: The Impact of Mental Health on College Students Academic Performance"),
+             h4("The Impact of Mental Health on College Students Academic Performance"),
              p("Add in brief description and how we apporached it "),
              br(),
-             h4("Story 3: How your Major could Affect your Mental Health"),
+             h4("How your Major could Affect your Mental Health"),
              p("Add in brief description and how we apporached it "),
              p(""),
              br(),
@@ -101,21 +104,30 @@ ui <- fluidPage(
     tabPanel("Summary",
              h2("Summary"),
              plotOutput("summary_plot"),
-             p("Provide a summary of the key findings and takeaways from the study.")
+             p("Shown above are four bar graph showing the percentage of people with depression, anxiety, and panic attacks grouped
+               by major. As shown by the differences in percentages, majors such as busniess and engineering have a higher affiliation
+               with students experiencing mental health concerns. While compared to the other three degree catagories, the other and 
+               humanaities catagory shown much lower percentages. While all shown percentages are under 50%, there is no denying the
+               relationship between mental health and univeristy.")
     ),
     
     # About Me page
     tabPanel("About Me",
              h2("About Me"),
+             p("The goal of our project and reasearch is to provide useful information on mental health using data analytics and visualization tools. 
+             We want to bring attention to the importance of mental health among college studenst because not only can it affect yourself, but other you know."),
              h3("Authors and Affiliations"),
              p(" Authors: Leilani Flores, Sophie Wetzel, Cung Tran"),
              p("Affiliations: Info 201 - Technical Foundations of Informatics"),
              h3("Data Sets"),
-             p("Found Data Sets:"),
+             h4("Found Data Sets:"),
              p("StudentMentalHealth.csv, https://www.kaggle.com/datasets/shariful07/student-mental-health"),
              p("Mental_Health_Care_in_the_Last_4_Weeks.csv, https://www.cdc.gov/nchs/covid19/pulse/mental-health-care.htm"),
-             p("Created Data Sets: FinalDataSet.csv"),
-             br(),
+             h4("Created Data Sets:"),
+             p("FinalDataSet.csv"),
+             h3("Github Respitory"),
+             p("https://github.com/sophw03/info201project_studentsmentalhealth"),
+             br()
     ),
   )
 )
