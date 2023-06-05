@@ -53,7 +53,8 @@ ui <- fluidPage(
                 faced by students to help improve their well-being and educational success."),
              br(),
              h4("How your Major could Affect your Mental Health"),
-             p("Add in brief description and how we apporached it "),
+             p("The data story explores how a choice of major can impact your mental health. This analysis is conducted through survey, interview, 
+                and data collection. This is to shed light on the relationship between academic disciplines and mental well- being."),
              br(),
     ),
     
