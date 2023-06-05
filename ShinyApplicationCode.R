@@ -111,16 +111,12 @@ ui <- fluidPage(
                 relationship between mental health and univeristy.")
     ),
     
-    # Summary page
-    #tabPanel("Summary",
-
-    #),
-    
-    # About Me page
+    # Summary & About Me page
     tabPanel("Summary & About Me",
-             h2("About Me"),
+             h2("Summary"),
              p("The goal of our project and reasearch is to provide useful information on mental health using data analytics and visualization tools. 
              We want to bring attention to the importance of mental health among college studenst because not only can it affect yourself, but other you know."),
+             h2("About Me"),
              h3("Authors and Affiliations"),
              p(" Authors: Leilani Flores, Sophie Wetzel, Cung Tran"),
              p("Affiliations: Info 201 - Technical Foundations of Informatics"),
