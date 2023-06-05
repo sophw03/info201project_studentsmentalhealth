@@ -51,7 +51,6 @@ ui <- fluidPage(
              br(),
              h4("How your Major could Affect your Mental Health"),
              p("Add in brief description and how we apporached it "),
-             p(""),
              br(),
     ),
     
@@ -97,22 +96,21 @@ ui <- fluidPage(
                mainPanel(
                  plotOutput("story3_plot")
                )
-             )
+             ),
+             p("Shown above are four bar graph showing the percentage of people with depression, anxiety, and panic attacks grouped
+                by major. As shown by the differences in percentages, majors such as busniess and engineering have a higher affiliation
+                with students experiencing mental health concerns. While compared to the other three degree catagories, the other and 
+                humanaities catagory shown much lower percentages. While all shown percentages are under 50%, there is no denying the
+                relationship between mental health and univeristy.")
     ),
     
     # Summary page
-    tabPanel("Summary",
-             h2("Summary"),
-             plotOutput("summary_plot"),
-             p("Shown above are four bar graph showing the percentage of people with depression, anxiety, and panic attacks grouped
-               by major. As shown by the differences in percentages, majors such as busniess and engineering have a higher affiliation
-               with students experiencing mental health concerns. While compared to the other three degree catagories, the other and 
-               humanaities catagory shown much lower percentages. While all shown percentages are under 50%, there is no denying the
-               relationship between mental health and univeristy.")
-    ),
+    #tabPanel("Summary",
+
+    #),
     
     # About Me page
-    tabPanel("About Me",
+    tabPanel("Summary & About Me",
              h2("About Me"),
              p("The goal of our project and reasearch is to provide useful information on mental health using data analytics and visualization tools. 
              We want to bring attention to the importance of mental health among college studenst because not only can it affect yourself, but other you know."),
@@ -222,22 +220,6 @@ server <- function(input, output) {
     }
   })
   
-  # summary plot
-  output$summary_plot <- renderPlot({
-    # Create a matrix for the bar plot
-    bar_data <- t(as.matrix(summary_data_major[, -1]))
-    
-    # Set color palette
-    colors <- c("lightpink", "lightblue", "lightgreen")
-    
-    # Create bar plot
-    barplot(bar_data, beside = TRUE, col = colors, ylim = c(0, 50), 
-            xlab = "Major", ylab = "Percentage",
-            main = "Percentage of People with Depression, Anxiety, and Panic Attacks by Major",
-            legend.text = c("Depression", "Anxiety", "Panic Attacks"),
-            args.legend = list(x = "topright", bty = "n"),
-            names.arg = summary_data_major$Major)
-  })
 }
 
 # Run the application
