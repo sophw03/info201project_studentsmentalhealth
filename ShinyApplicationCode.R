@@ -68,6 +68,9 @@ ui <- fluidPage(
                )
              )
     ),
+    ( the data story focuses on examining the percentage of college students with mental health condition,
+     it explores the prevalence anf trends of mental health issue among the college students. Using a combination
+     of survey, and data analysis to provide a better understanding. 
     
     # Story 2 Page
     tabPanel("The Impact of Mental Health on College Students Academic Performance",
