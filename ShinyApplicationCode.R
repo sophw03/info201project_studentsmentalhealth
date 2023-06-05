@@ -72,9 +72,6 @@ ui <- fluidPage(
                 appears to stay fairly constant across the age groups while the percentage of students with anxiety and panic attacks flucuates by year. 
                 Once again, this highlights what was previously stated about mental health.")
     ),
-    ( the data story focuses on examining the percentage of college students with mental health condition,
-     it explores the prevalence anf trends of mental health issue among the college students. Using a combination
-     of survey, and data analysis to provide a better understanding. 
     
     # Story 2 Page
     tabPanel("The Impact of Mental Health on College Students Academic Performance",
@@ -88,7 +85,10 @@ ui <- fluidPage(
                mainPanel(
                  plotOutput("story2_plot")
                )
-             )
+             ),
+             p("The three graphs shown above show a range of GPAs and their relationship to mental health. What makes these graphs so interesting 
+               is what isn't shown on them. Neither the depression or anxiety graph have data for the lower GPAs. This would be a good area to 
+               study because of it's apparent lack of data to futher analyse the relationship between academic preformance and mental health.")
     ),
     
     # Story 3 Page
